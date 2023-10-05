@@ -3,19 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <input id="example"> 
+
+    <!-- یک دکمه با id "showButton" -->
+    <button id="showButton">نمایش مقدار در کنسول</button>
 </head>
 <body>
+<div id="output"></div>
 <script>
     const ws = new WebSocket("ws://localhost:3000")
-    ws.addEventListener('open', () => {
+    ws.addEventListener('open', (evt) => {
         console.log('connected')
-        ws.send(JSON.stringify({
-            data:'data'
-        }))
+        var button = document.getElementById("showButton");
+
+        // اضافه کردن یک رویداد click به دکمه
+        button.addEventListener("click", function() {
+            // دریافت المان با استفاده از id
+            var element = document.getElementById("example");
+
+            // دریافت مقدار متنی المان و نمایش در کنسول
+            console.log(element.value);
+            ws.send(element.value);
+ 
+
+   
+
+        });
+   
+       
     })
     ws.addEventListener('message',(e)=>{
+        
+        var test=document.getElementById("output");
+        test.textContent=e.data
         console.log(e.data)
     })
+ 
 </script>
 </body>
 </html>

@@ -8,7 +8,12 @@ public class WS : WebSocketBehavior
 {
     protected override void OnMessage(MessageEventArgs e)
     {
+         
         // JsonSerializer.Deserialize()
+        if (e.Data.Contains("slm"))
+        {
+            Send("slm bar to");
+        }
         Console.WriteLine(e.Data);
         // Send(msg);
     }
